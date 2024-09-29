@@ -5,14 +5,14 @@
     }
     updateCurrentDate();
     async function getWeather() {
-        const city = document.getElementById('city').value.trim(); 
+        const city = document.getElementById('city').value.trim();
 
-        if (!city) {  
+        if (!city) { 
             alert("Please enter a city name to get the weather information.");
             return;
         }
 
-        const apiKey = '19c780c5db083447fc158cb75ed1614d'; 
+        const apiKey = '8c2b70a744363ea188d963c01bb8fe12'; 
         const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${apiKey}`;
 
         try {
@@ -20,14 +20,13 @@
             const data = await response.json();
 
             if (data.cod !== 200) {
-                alert(data.message);  
+                alert(data.message); 
                 return;
             }
             document.querySelector('.city').innerText = data.name;
             document.querySelector('.temp').innerText =` ${Math.round(data.main.temp)}°C`;
             document.querySelector('.humidity').innerText = `${data.main.humidity}%`;
             document.querySelector('.wind').innerText = `${data.wind.speed} km/h`;
-
             const iconUrl = `http://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`;
             document.getElementById('weather-icon').src = iconUrl;
             const weatherMain = data.weather[0].main.toLowerCase();
@@ -38,7 +37,7 @@
         }
     }
     async function getHourlyForecast(city) {
-        const apiKey = '19c780c5db083447fc158cb75ed1614d';
+        const apiKey = '8c2b70a744363ea188d963c01bb8fe12'; 
         const apiUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&units=metric&appid=${apiKey}`;
 
         try {
@@ -51,7 +50,7 @@
             }
             const hourlyForecast = data.list.slice(0, 5).map(item => {
                 return {
-                    time: item.dt_txt.split(" ")[1].slice(0, 5), 
+                    time: item.dt_txt.split(" ")[1].slice(0, 5),
                     temp: Math.round(item.main.temp),
                     icon: `http://openweathermap.org/img/wn/${item.weather[0].icon}@2x.png`
                 };
@@ -108,4 +107,10 @@
         
         video.play();  
     }
+    
+
+
     document.getElementById('searchButton').addEventListener('click', getWeather);
+
+
+
